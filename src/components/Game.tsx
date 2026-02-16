@@ -33,21 +33,14 @@ export default function Game() {
     }
   }, [state.mode, state.viewport]);
 
+  const prevCheckpointRef = useRef(state.checkpointIndex);
+  useEffect(() => {
+    prevCheckpointRef.current = state.checkpointIndex;
+  }, [state.checkpointIndex]);
+
   // 6) Main game loop (only runs when state.mode === "playing")
   const [, setRenderTick] = useState(0);
-  useGameLoop(state, playerRef, inputRef, dispatch);
-  
-  // Force re-render every frame while playing so player position updates visually
-  useEffect(() => {
-    if (state.mode !== "playing") return;
-    let raf = 0;
-    const tick = () => {
-      setRenderTick(t => t + 1);
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [state.mode]);
+  useGameLoop(state, playerRef, inputRef, dispatch, prevCheckpointRef, setRenderTick);
 
   // Controls
   const handleStart = () => dispatch({ type: "START" });
@@ -64,10 +57,13 @@ export default function Game() {
     return () => removeEventListener("keydown", onKey);
   }, [state.mode]); // safe: we read state.mode only
 
-  // Read player position for rendering (this does NOT re-render every frame by itself)
-  // NOTE: You'll see movement when reducer re-renders (checkpoint/coins/viewport changes).
-  // Later you can add a tiny "render tick" state if you want smooth visual updates every frame.
+  // Read player position for rendering
   const p = playerRef.current;
+
+  // Parallax offset based on player position within current checkpoint segment
+  const segmentX = p.pos.x % state.viewport.w;
+  const parallaxSlow = -segmentX * 0.2;
+  const parallaxFast = -segmentX * 0.5;
 
   return (
     <div
@@ -95,46 +91,47 @@ export default function Game() {
         }}
       />
 
-      {/* TOP GIF LAYER (later: set backgroundImage from state.topGifUrl) */}
+      {/* TOP GIF LAYER with parallax */}
       <div
         className="topGif"
         style={{
           position: "absolute",
-          left: 0,
+          left: parallaxSlow,
           top: 0,
-          width: "100%",
+          width: "200%",
           height: "35%",
-          // backgroundImage: state.topGifUrl ? `url(${state.topGifUrl})` : undefined,
-          backgroundSize: "cover",
+          backgroundSize: "50% 100%",
           backgroundRepeat: "repeat-x",
           pointerEvents: "none",
         }}
       />
 
-      {/* FLOOR GIF LAYER (later: set backgroundImage from state.floorGifUrl) */}
+      {/* FLOOR GIF LAYER with parallax */}
       <div
         className="floorGif"
         style={{
           position: "absolute",
-          left: 0,
+          left: parallaxFast,
           bottom: 0,
-          width: "100%",
+          width: "200%",
           height: "35%",
-          // backgroundImage: state.floorGifUrl ? `url(${state.floorGifUrl})` : undefined,
-          backgroundSize: "cover",
+          backgroundSize: "50% 100%",
           backgroundRepeat: "repeat-x",
           pointerEvents: "none",
         }}
       />
 
-      {/* PLAYER (basic placeholder — visible now) */}
+      {/* PLAYER - position from ref, React re-renders when renderTick changes */}
       <div
         className="player"
         style={{
           position: "absolute",
           width: Math.max(16, Math.round(state.viewport.w * 0.045)),
           height: Math.max(28, Math.round(state.viewport.h * 0.11)),
-          transform: `translate3d(${p.pos.x}px, ${p.pos.y}px, 0)`,
+          // FIX: Use modulo (%) so player position always wraps to fit inside 0 -> viewport.width.
+          // PREVIOUS FAIL: Without modulo, as the player's world X increased (e.g., to 3000px), 
+          // they were being rendered far off-screen to the right.
+          transform: `translate3d(${p.pos.x % state.viewport.w}px, ${p.pos.y}px, 0)`,
           background: "black",
           borderRadius: 8,
         }}
