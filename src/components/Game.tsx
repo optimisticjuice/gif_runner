@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useRef } from "react";
+import { useEffect, useReducer, useRef, useState } from "react";
 import { reducer, initial } from "../game/reducer";
 import { emptyInput, useKeyboard } from "../game/keyboard";
 import { makePlayer } from "../game/world";
@@ -14,11 +14,11 @@ export default function Game() {
   );
 
   // 2) Keep viewport in sync with window size
-  useViewport(dispatch);
+  useViewport(dispatch);    
 
   // 3) Input lives in a ref (no re-renders per key press)
   const inputRef = useRef(emptyInput());
-  useKeyboard(inputRef);
+  useKeyboard(inputRef, state.mode === "playing");
 
   // 4) Player physics lives in a ref (no re-renders per frame)
   // IMPORTANT: useRef(initialValue) runs only once, so we reset playerRef manually when needed.
@@ -34,7 +34,20 @@ export default function Game() {
   }, [state.mode, state.viewport]);
 
   // 6) Main game loop (only runs when state.mode === "playing")
+  const [, setRenderTick] = useState(0);
   useGameLoop(state, playerRef, inputRef, dispatch);
+  
+  // Force re-render every frame while playing so player position updates visually
+  useEffect(() => {
+    if (state.mode !== "playing") return;
+    let raf = 0;
+    const tick = () => {
+      setRenderTick(t => t + 1);
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [state.mode]);
 
   // Controls
   const handleStart = () => dispatch({ type: "START" });

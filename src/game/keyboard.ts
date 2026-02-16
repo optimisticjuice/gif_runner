@@ -7,12 +7,14 @@ export const keyOf = (k:string)=>(
 );
 
 
-export const useKeyboard = (inputRef: React.RefObject<Input>) => {
+export const useKeyboard = (inputRef: React.RefObject<Input>, isEnabled: boolean = true) => {
   useEffect(() => {
+    if (!isEnabled) return;
+    
     const on = (e:KeyboardEvent, v:boolean)=>{ const k=keyOf(e.key); 
         if(k) inputRef.current[k]=v; };
     const down = (e:KeyboardEvent)=>on(e,true), up=(e:KeyboardEvent)=>on(e,false);
     addEventListener("keydown", down); addEventListener("keyup", up);
     return ()=>{ removeEventListener("keydown", down); removeEventListener("keyup", up); };
-  }, [inputRef]);
+  }, [inputRef, isEnabled]);
 };
