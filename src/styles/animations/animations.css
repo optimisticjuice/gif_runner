@@ -1,0 +1,21 @@
+@keyframes coinFloat {
+  0%   { transform: translate3d(var(--x, 0px), calc(var(--y, 0px) + 0px), 0); }
+  50%  { transform: translate3d(var(--x, 0px), calc(var(--y, 0px) - 6px), 0); }
+  100% { transform: translate3d(var(--x, 0px), calc(var(--y, 0px) + 0px), 0); }
+}
+
+@keyframes pop {
+  0%   { transform: translate3d(var(--x, 0px), var(--y, 0px), 0) scale(.6); opacity: 0; }
+  25%  { opacity: 1; }
+  100% { transform: translate3d(var(--x, 0px), calc(var(--y, 0px) - 18px), 0) scale(1.15); opacity: 0; }
+}
+
+@keyframes flashBad {
+  0%, 100% { filter: none; }
+  50% { filter: hue-rotate(300deg) brightness(1.18); }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}

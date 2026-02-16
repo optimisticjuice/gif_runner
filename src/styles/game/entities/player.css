@@ -1,0 +1,37 @@
+.player {
+  position: absolute;
+  width: var(--player-w, 44px);
+  height: var(--player-h, 68px);
+  transform: translate3d(var(--x, 0px), var(--y, 0px), 0);
+  will-change: transform;
+  border-radius: 14px;
+  background:
+    radial-gradient(24px 34px at 50% 35%, rgba(255,255,255,.20), transparent 60%),
+    linear-gradient(135deg, rgba(124,92,255,.9), rgba(37,208,255,.75));
+  box-shadow: 0 14px 30px rgba(0,0,0,.20);
+  border: 1px solid rgba(255,255,255,.16);
+}
+
+.player::after {
+  content: "";
+  position: absolute;
+  left: 10px; right: 10px;
+  bottom: -10px;
+  height: 12px;
+  background: radial-gradient(closest-side, rgba(0,0,0,.30), transparent);
+  filter: blur(3px);
+  opacity: .55;
+}
+
+.player--crawl {
+  height: calc(var(--player-h, 68px) * .68);
+  border-radius: 12px;
+}
+
+.player--sprint {
+  filter: brightness(1.05) saturate(1.06);
+}
+
+.player--hurt {
+  animation: flashBad 280ms var(--ease) 2;
+}

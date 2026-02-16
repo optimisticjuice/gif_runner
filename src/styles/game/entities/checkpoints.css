@@ -1,0 +1,20 @@
+.checkpointGate {
+  position: absolute;
+  transform: translate3d(var(--x, 0px), 0, 0);
+  top: 0;
+  bottom: 0;
+  width: 10px;
+  background: linear-gradient(180deg, rgba(124,92,255,.55), rgba(37,208,255,.35));
+  opacity: .55;
+  filter: blur(.2px);
+}
+
+.checkpointGate::after {
+  content: "";
+  position: absolute;
+  left: -18px; right: -18px;
+  top: 10%;
+  height: 1px;
+  background: rgba(255,255,255,.22);
+  opacity: .8;
+}

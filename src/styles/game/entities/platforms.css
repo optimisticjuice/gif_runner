@@ -1,0 +1,22 @@
+.platform {
+  position: absolute;
+  transform: translate3d(var(--x, 0px), var(--y, 0px), 0);
+  width: var(--w, 120px);
+  height: var(--h, 18px);
+  border-radius: 14px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,.08)),
+    rgba(10, 12, 22, .35);
+  border: 1px solid rgba(255,255,255,.14);
+  box-shadow: 0 10px 24px rgba(0,0,0,.18);
+  backdrop-filter: blur(6px);
+}
+
+.platform::before {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(124,92,255,.18), rgba(37,208,255,.12));
+  opacity: .9;
+}

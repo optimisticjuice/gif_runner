@@ -1,0 +1,36 @@
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(900px 500px at 50% 15%, rgba(0,0,0,.25), rgba(0,0,0,.55));
+  backdrop-filter: blur(6px);
+}
+
+.overlayCard {
+  width: min(520px, 92vw);
+  border-radius: var(--radius-3);
+  background: rgba(10, 12, 22, .78);
+  border: 1px solid rgba(255,255,255,.14);
+  box-shadow: var(--shadow-hard);
+  padding: 18px;
+  display: grid;
+  gap: 12px;
+}
+
+.overlayTitle {
+  font-weight: 900;
+  font-size: 22px;
+  letter-spacing: .2px;
+}
+
+.overlayText {
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.overlayActions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}

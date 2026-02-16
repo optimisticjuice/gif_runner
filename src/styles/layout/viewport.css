@@ -1,0 +1,31 @@
+.gameViewport {
+  width: var(--viewport-w);
+  height: var(--viewport-h);
+  border-radius: var(--radius-3);
+  overflow: hidden;
+  position: relative;
+  background: var(--sky);
+  box-shadow: var(--shadow-hard);
+  border: 1px solid rgba(255,255,255,.14);
+}
+
+.gameViewport::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(900px 260px at 50% 0%, rgba(255,255,255,.28), transparent 55%),
+    radial-gradient(700px 300px at 10% 20%, rgba(255,255,255,.12), transparent 60%),
+    radial-gradient(800px 300px at 90% 30%, rgba(255,255,255,.10), transparent 62%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.gameFrame {
+  position: absolute;
+  inset: 12px;
+  border-radius: calc(var(--radius-3) - 10px);
+  border: 1px solid rgba(255,255,255,.12);
+  pointer-events: none;
+  z-index: 50;
+}

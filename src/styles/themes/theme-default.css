@@ -1,0 +1,5 @@
+/* Default theme: lightblue sky, subtle haze. You’ll swap GIF URLs via inline styles */
+:root {
+  --sky: lightblue;
+  --sky-haze: rgba(255,255,255,.45);
+}

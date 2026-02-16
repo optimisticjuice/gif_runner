@@ -1,0 +1,29 @@
+.worldRoot {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.worldCamera {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+  transform: translate3d(0,0,0); /* your JS will override */
+}
+
+.worldContent {
+  position: absolute;
+  inset: 0;
+}
+
+/* Optional: a subtle horizon haze */
+.horizonHaze {
+  position: absolute;
+  left: 0; right: 0;
+  top: 45%;
+  height: 22%;
+  background: linear-gradient(180deg, rgba(255,255,255,.35), transparent);
+  filter: blur(10px);
+  opacity: .55;
+  pointer-events: none;
+}

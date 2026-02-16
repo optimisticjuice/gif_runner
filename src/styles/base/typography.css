@@ -1,0 +1,7 @@
+body {
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  color: var(--text);
+  background: var(--bg-app);
+}
+
+h1, h2, h3, p { margin: 0; }

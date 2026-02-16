@@ -1,0 +1,8 @@
+/* Layer z-index map */
+.layer-parallaxTop { z-index: 1; }
+.layer-sky         { z-index: 3; }
+.layer-parallaxMid { z-index: 4; }
+.layer-world       { z-index: 10; }
+.layer-entities    { z-index: 20; }
+.layer-hud         { z-index: 40; }
+.layer-overlay     { z-index: 60; }

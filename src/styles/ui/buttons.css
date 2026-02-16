@@ -1,0 +1,25 @@
+.btn {
+  appearance: none;
+  border: 0;
+  cursor: pointer;
+  border-radius: 999px;
+  padding: 10px 14px;
+  font-weight: 800;
+  letter-spacing: .2px;
+  transition: transform var(--dur-1) var(--ease), filter var(--dur-1) var(--ease);
+  background: rgba(255,255,255,.10);
+  color: var(--text);
+  border: 1px solid rgba(255,255,255,.14);
+}
+
+.btn:hover { transform: translateY(-1px); filter: brightness(1.05); }
+.btn:active { transform: translateY(0px) scale(.98); }
+
+.btn--primary {
+  background: linear-gradient(135deg, rgba(124,92,255,.95), rgba(37,208,255,.80));
+  border: 1px solid rgba(255,255,255,.18);
+}
+
+.btn--danger {
+  background: linear-gradient(135deg, rgba(255,92,124,.90), rgba(255,204,102,.60));
+}

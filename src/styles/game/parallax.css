@@ -1,0 +1,50 @@
+.parallax {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.parallaxTopGif {
+  position: absolute;
+  left: -10%;
+  right: -10%;
+  top: -10%;
+  height: 42%;
+  background-size: cover;
+  background-position: center;
+  filter: saturate(1.12) contrast(1.05);
+  opacity: .82;
+}
+
+.skyBand {
+  position: absolute;
+  left: 0; right: 0;
+  top: 36%;
+  height: 28%;
+  background: linear-gradient(180deg, rgba(255,255,255,.25), rgba(255,255,255,.07));
+  mix-blend-mode: soft-light;
+}
+
+.parallaxMid {
+  position: absolute;
+  left: -8%;
+  right: -8%;
+  top: 50%;
+  height: 26%;
+  background-size: cover;
+  background-position: center;
+  opacity: .45;
+  filter: blur(.2px) saturate(1.05);
+}
+
+.floorGif {
+  position: absolute;
+  left: -10%;
+  right: -10%;
+  bottom: -12%;
+  height: 40%;
+  background-size: cover;
+  background-position: center;
+  filter: saturate(1.12) contrast(1.06);
+  opacity: .95;
+}

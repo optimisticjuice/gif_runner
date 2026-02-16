@@ -1,0 +1,17 @@
+.coin {
+  position: absolute;
+  width: var(--coin, 18px);
+  height: var(--coin, 18px);
+  transform: translate3d(var(--x, 0px), var(--y, 0px), 0);
+  border-radius: 999px;
+  background: radial-gradient(circle at 35% 35%, rgba(255,255,255,.9), rgba(255,255,255,.2) 25%, rgba(255,204,102,.9) 55%, rgba(255,92,124,.45));
+  box-shadow: 0 8px 18px rgba(0,0,0,.18);
+  border: 1px solid rgba(255,255,255,.18);
+  animation: coinFloat 1.4s var(--ease-in-out, ease-in-out) infinite;
+}
+
+.coin--collected {
+  opacity: 0;
+  transform: translate3d(var(--x, 0px), calc(var(--y, 0px) - 20px), 0) scale(.6);
+  transition: transform var(--dur-2) var(--ease), opacity var(--dur-2) var(--ease);
+}
